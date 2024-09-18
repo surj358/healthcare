@@ -1,0 +1,126 @@
+#why-choose-us{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+}
+.why-choose-us-left{
+    padding: 50px;
+    background-color: #3c8167;
+}
+.why-choose-us-right{
+    padding: 50px;
+    background-color: #574fc0;
+}
+.why-choose-us-left h3{
+    font-size: 2.6rem;
+    font-weight: 600;
+    color: white;
+    line-height: 3.2rem;
+}
+.why-choose-box-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 20px;
+    grid-gap: 10px;
+}
+.why-choose-box{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    background-color: #4a8a70;
+}
+.why-choose-box i{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #25503f;
+    margin-right: 10px;
+    color: white;
+}
+.why-choose-box-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.why-choose-box-text strong{
+    color: whitesmoke;
+    font-weight: 600;
+}
+.why-choose-box-text p{
+    color: #ececec;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+.why-choose-us-btn{
+    background-color: #1a1a1b;
+    color: #ffffff;
+    padding: 0px 10px;
+    display: flex;
+    height: 45px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    max-width: 200px;
+    margin-top: 30px;
+    font-size: o.9rem;
+
+}
+.why-choose-us-right h3{
+    font-size: 2.6rem;
+    font-weight: 600;
+    color: white;
+    line-height: 3.2rem; 
+}
+.why-choose-us-right p{
+    color: #dfdfdf;
+    font-size: 0.8rem;
+    line-height: 1.4rem;
+    letter-spacing: 0.5px;
+    margin: 10px 0px;
+}
+.w-right-contact-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.w-right-contact-box{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+}
+.w-right-contact-box i{
+    width: 50px;
+    height: 50px;
+    background-color: #4060b3;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+.w-right-contact-box-text{
+    display: flex;
+    flex-direction: column;
+}
+.w-right-contact-box-text{
+    display: flex;
+    flex-direction: column;
+}
+.w-right-contact-box-text span{
+    color: #000000;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+.w-right-contact-box-text strong{
+    font-size: 1rem;
+    color: #ffffff;
+    font-weight: 600;
+}

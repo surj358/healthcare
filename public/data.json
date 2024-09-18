@@ -1,0 +1,45 @@
+{   
+    "doctors":[
+    {
+        "name":"Dr.Siddhant Bhau Gaikwad",
+        "span": "Eye Specialist",
+        "image":"images/siddhant.png"
+    },
+    {
+        "name":"Dr.Rajratna Kharat",
+        "span": "Bone Specialist ",
+        "image":"images/raj.png"
+    },
+    {
+        "name":"Dr.Suraj Shahane",
+        "span": "Neurologist Specialist",
+        "image":"images/siddhant.png"
+    },
+    {
+        "name":"Dr.Pawan More",
+        "span": "Kidney,Lungs Specialist",
+        "image":"images/pawan more.png"
+    },
+    {
+        "name":"Dr.Ruchira Bhangle",
+        "span": "Cardiologists Specialist",
+        "image":"images/rucha.png"
+    },
+    {
+        "name":"Dr.Sayali Koche",
+        "span": "Cardiologists Specialist",
+        "image":"images/Sayali.png"
+    },
+    {
+        "name":"Dr.Nikhil Pawar",
+        "span": "Weight Gaining Specialist",
+        "image":"images/nikhil.png"
+    },
+    {
+        "name":"Dr.Shubham Sherkar",
+        "span": "Body Building Specialist",
+        "image":"images/shubham png.png"      
+    }
+    ]
+
+}

@@ -1,0 +1,94 @@
+{
+  "short_name": "React App",
+  "name": "Create React App Sample",
+  "doctors":[
+    {
+        "_id":"doc_1",
+        "name":"Dr. Siddhant Bhau Gaikwad",
+        "span": "Eye Specialist",
+        "image":"images/siddhant.png",
+        "specialist":"General",
+        "degree":"MBBS"
+    },
+    {
+        "_id":"doc_2",    
+        "name":"Dr. Rajratna Kharat",
+        "span": "Bone Specialist ",
+        "image":"images/raj.png",
+        "specialist":"General",
+        "degree":"MBBS"
+
+    },
+    {
+        "_id":"doc_3",
+        "name":"Dr. Suraj Shahane",
+        "span": "Neurologist Specialist",
+        "image":"images/suraj shahane.png",
+        "specialist":"SC",
+        "degree":"BHMSS"
+    },
+    {
+        "_id":"doc_4",
+        "name":"Dr. Pawan More",
+        "span": "Kidney,Lungs Specialist",
+        "image":"images/pawan more.png",
+        "specialist":"SC",
+        "degree":"BHMSS"
+    },
+    {  
+        "_id":"doc_4",
+        "name":"Dr. Ruchira Bhangle",
+        "span": "Cardiologists Specialist",
+        "image":"images/rucha.png",
+        "specialist":"OBC",
+        "degree":"BAMS"
+    },
+    {
+        "_id":"doc_4",
+        "name":"Dr. Sayali Koche",
+        "span": "Cardiologists Specialist",
+        "image":"images/Sayali.png",
+        "specialist":"OBC",
+        "degree":"BAMS"
+    },
+    {
+        "_id":"doc_4",
+        "name":"Dr. Nikhil Pawar",
+        "span": "Weight Gaining Specialist",
+        "image":"images/nikhil.png",
+        "specialist":"obc",
+        "degree":"bds"
+    },
+    {
+        "_id":"doc_4",
+        "name":"Dr. Shubham Sherkar",
+        "span": "Body Building Specialist",
+        "image":"images/shubham png.png",
+        "specialist":"OBC",
+        "degree":"bds"    
+    }
+  ],
+
+
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

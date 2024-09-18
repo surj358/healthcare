@@ -1,0 +1,122 @@
+.team-heading{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.team-heading h3{
+    font-size: 2.4rem;
+    color: #122853;
+}
+.team-heading p{
+    color: #000000;
+    font-size: 1.0rem;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+}
+
+.team-box-container{
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+    align-items: center;
+    cursor: pointer;
+
+}
+.team-box{
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+.team-img{
+    background-color: #dee8ff;
+    padding: 10px 10px 0px 10px;
+    height: 300px;
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    transition: all ease 0.5s;
+}
+.team-img img{
+    width: 100%;
+    height: 95%;
+    object-fit: contain;
+    object-position: center-bottom;
+    transition: all ease 0.5s;
+}
+.team-img:hover img {
+    scale: 1.09;
+}
+.team-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+.team-text strong{
+    color: #122853;
+}
+.team-text span{
+    color: #303030;
+    font-size: 0.9rem;
+    margin: 2px 0px 18px;
+}
+#subscribe{
+    max-width: 1000px;
+    width: 90%;
+    background-color: #005eff;
+    padding: 50px;
+    border-radius: 10px;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#subscribe h3{
+    font-size: 2.6rem;
+    color: #ffffff;
+    font-weight: 600;
+    line-height: 3.4rem;
+    max-width: 600px;
+    text-align: center;
+}
+.subscribe-box{
+    max-width: 900px;
+    width: 60%;
+    background-color: white;
+    border-radius: 4px;
+    height: 40px;
+    display: flex;
+    padding: 5px;
+    margin-top: 20px;
+
+}
+.subscribe-box input{
+    width: 80%;
+    height: 100%;
+    padding: 0px 10px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+.subscribe-box button{
+    background-color: #122853;
+    color: #ffff;
+    border-radius: 4px;
+    max-width: 120px;
+    width: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+}
