@@ -1,52 +1,56 @@
-import './header.css'
+import './header.css';
+import CheckIcon from '@mui/icons-material/Check';
+import SearchIcon from '@mui/icons-material/Search'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
 
 export function Header() {
     return (
 
-        <div className='pt-8'>
-            <div className="hero-content">
-                <div className="hero-text">
-                    <h1>Feel Better About Finding HealtCare</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure sunt repellat exercitationem est facilis eos sapiente illo quo at nam vitae doloremque architecto, deserunt dolorum minima a impedit officia ratione?</p>
-                    <div className="hero-text-btns">
-                        <a href="#">
-                            <i className="fa-solid fa-magnifying-glass">icon</i>
-                            Find a Doctor</a>
-                        <a href="#">
-                            <i className="fa-solid fa-check">icon</i>
-                            Book Appointment
-                        </a>
+    <div>
+
+        <div className='pt-14 lg:px-20 bg-blue-50'>
+            <div className="grid lg:grid-cols-2 sm:grid-cols-1">
+                <div className="flex flex-col mt-8">
+                    <h1 className='text-4xl font-bold'>Feel Better About Finding Healthcare</h1>
+                    <p className='my-10 tracking-wide leading-8 text-lg'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure sunt repellat exercitationem est facilis eos sapiente illo quo at nam vitae doloremque architecto, deserunt dolorum minima a impedit officia ratione?</p>
+                    <div className="flex items-center justify-start ">
+                        <a className='h-11 p-4 bg-blue-950 text-white items-center flex justify-center font-bold lg:text-base rounded-md tracking-wide mr-3 '>
+                            <SearchIcon className='w-4 h-4 p-1 rounded-full bg-blue-600 mr-2 size-2' />
+                            Find a Doctor</a>            
+                        
+                        <a className='h-11 p-4 bg-blue-950 text-white items-center  flex justify-center font-bold lg:text-base rounded-md tracking-wide mr-3 '>
+                            <CheckIcon className='w-4 h-4 p-1 rounded-full bg-blue-600 mr-2 size-2 "' /> Book Appointment </a>
                     </div>
                 </div>
 
                 <div className="hero-img">
-                    <img src="./123.png" alt="" />
+                    <img style={{}} src="123.png" alt="" />
                 </div>
             </div>
 
-            <div className="appointment-search-container">
-                <h3>Find Best Healthcare</h3> 
+        </div>
+        <div className="bg-white p-5 m-auto rounded-lg shadow-2xl relative z-10 mt-[-42px] lg:w-[1000px] ">
+                <h3 className='text-base mb-2 font-bold'>Find Best Healthcare</h3> 
 
-                <div className="appointment-search">
+                <div className="grid lg:grid-cols-12 gap-2 ">
 
-                    <div className="appo-search-box i">
-                        <i className="fa-solid fa-magnifying-glass">icon</i>
-                        <dd><input type="text" placeholder="search your Doctor here"/></dd>                      
+                    <div className=" flex justify-start items-center col-span-6 p-3 rounded-md border bg-blue-50">
+                        <SearchIcon/>
+                        <dd><input className='mx-4 bg-blue-50' type="text" placeholder="search your Doctor here"/></dd>                      
                     </div>
 
-                    <div className="appo-search-box">
-                        <i className="fa-solid fa-map-pin">icon</i>
-                        <dd><input type="text" placeholder="Suraj-Salve-358"/></dd>       
+                    <div className=" flex justify-start col-span-5 items-center p-3 rounded-md border bg-blue-50">
+                        <LocationOnIcon />
+                        <dd><input className='mx-4 bg-blue-50' type="text" placeholder="Aurangabad"/></dd>       
                     </div>
 
-                    <button>
-                        <i className="fa-solid fa-magnifying-glass">icon</i>
+                    <button className='bg-blue-600 rounded-md cursor-pointer w-14'>
+                        <SearchIcon className='text-white' />
                     </button>
 
                 </div>
 
             </div>
-
-        </div>
+    </div>
     )
 }

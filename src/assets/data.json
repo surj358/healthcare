@@ -1,0 +1,32 @@
+{
+    "states" : [
+        {
+            "name" : "Maharashtra",
+            "districts" : [
+                {
+                    "name" : "aurangabad",
+                    "image" : "123.png"
+                },
+                {
+                    "name" : "pune",
+                    "image" : "123.png"
+                }
+            ]
+        },
+
+        {
+            "name" : "Hyderabad",
+            "districts" : [
+                {
+                    "name" : "Secundarabad",
+                    "image" : "123.png"
+                },
+                {
+                    "name" : "Ameerpeth",
+                    "image" : "123.png"
+                }
+            ]
+
+        }
+    ]
+}

@@ -1,22 +1,7 @@
-#why-choose-us{
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-}
-.why-choose-us-left{
-    padding: 50px;
-    background-color: #3c8167;
-}
-.why-choose-us-right{
-    padding: 50px;
-    background-color: #574fc0;
-}
-.why-choose-us-left h3{
-    font-size: 2.6rem;
-    font-weight: 600;
-    color: white;
-    line-height: 3.2rem;
-}
+
+/*  */
+
+/*  */
 .why-choose-box-container{
     display: grid;
     grid-template-columns: 1fr 1fr;

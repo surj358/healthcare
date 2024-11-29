@@ -1,20 +1,5 @@
-footer{
-    width: 100%;
-    background-color: #f5f7fb;
-}
-.footer-container{
-    padding: 50px 0px;
-    max-width: 1200px;
-    width: 90%;
-    padding: 50px 0px;
-    margin: 0px auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-.footer-company-box{
-    max-width: 330px;  
-}
+/*  */
+
 .footer-company-box p{
     color: #000000;
     margin: 10px 0px;

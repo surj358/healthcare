@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Header } from "../components/header";
 import { Special } from "../components/special";
 import { Story } from "../components/story";
@@ -7,10 +6,11 @@ import { ChooseUs } from "../components/chooseus";
 import { Specialist } from "../components/specialist";
 import { About } from "./About";
 import { Footer } from "../components/footer";
+import { useState } from "react";
 
 export function Home() {
     return (
-        <div className="border-2 border-red-500 w-full">
+        <div>
            
             <Header />
             <Special />
@@ -18,7 +18,6 @@ export function Home() {
             <Services />
             <ChooseUs />
             <Specialist />
-            <About />
             <Footer />
         </div>
     )

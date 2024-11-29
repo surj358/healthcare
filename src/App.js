@@ -10,10 +10,23 @@ import { Myprofile } from './pages/MyProfile';
 import { MyAppointment } from './pages/MyAppointments';
 import { Appointment } from './pages/Appointment';
 import { Navbar } from './components/Navbar';
+import { Footer } from './components/footer';
+import { Demo } from './pages/demo';
+import { AdminDashboard } from './pages/Admin-Dashboard';
+import { DoctorDashboard } from './pages/Doctor-dashboard';
+import { UserDashboard } from './pages/UserDasboard';
+import { Suraj } from './pages/swiper';
+import { TodoDashBoard } from './User/todo-dashboard';
+import { ToDoAddTask } from './User/todo-addtask';
+import { ToDoRemoveTask } from './User/todo-remove';
+import { AdminLogin } from './Admin/admin';
+import { AddDoctors } from './Admin/addDoctors';
+import { DoctorLogin } from './Doctor/doctor-Login';
+
 
 function App() {
   return (
-    <div className='mx-4 md:mx-10'>
+    <div className='lg:mx-10 sm:mx-10'>
       <Navbar />
 
       <Routes>
@@ -26,9 +39,19 @@ function App() {
          <Route path='/my-profile' element={<Myprofile />} />
          <Route path='/my-appointments' element={<MyAppointment />} />
          <Route path='/appointment/:docId' element={<Appointment />} />
-      
-      
+         <Route path='/demo' element={<Demo />} />
+         <Route  path='/admin-dashboard' element={<AdminDashboard />}/>
+         <Route  path='/doctor-dashboard' element={<DoctorDashboard/>}/>
+        <Route path='/user-dashboard' element={<UserDashboard />}/>
+        <Route path='/dashboard' element={<TodoDashBoard />} />
+        <Route path='/add-task' element={<ToDoAddTask />} />
+        <Route path='/delete-task/:id' element={<ToDoRemoveTask />}/>
+        <Route path='/admin-login' element={<AdminLogin />} />
+        <Route path='/add-doctors' element={<AddDoctors />}/>
+        <Route path='/doctor-login' element={<DoctorLogin />} />
+            
       </Routes>
+
     </div>
   );
 }

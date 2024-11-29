@@ -3,49 +3,49 @@ import './chooseus.css';
 export function ChooseUs() {
     return (
         <div>
-            <section id="why-choose-us">
+            <section className='grid lg:grid-cols-2 sm:grid-cols-1'>
 
                 {/* <!--left********--> */}
-                <div class="why-choose-us-left">
-                    <h3>Why Choose Us</h3>
+                <div className=" p-12 bg-green-800">
+                    <h3 className='text-4xl font-bold text-white'>Why Choose Us</h3>
 
                     {/* <!------container--> */}
-                    <div class="why-choose-box-container">
+                    <div className='grid lg:grid-cols-2 sm:grid-cols-1 mt-5 gap-2'>
                         {/* <!--box--> */}
-                        <div class="why-choose-box">
-                            <i class="fa-solid fa-check">O</i>
+                        <div className="why-choose-box align-center p-5 bg-green-600">
+                            <i className="fa-solid fa-check">O</i>
                             {/* <!-- text --> */}
-                            <div class="why-choose-box-text">
+                            <div className="why-choose-box-text">
                                 <strong>Advance Care</strong>
                                 <p>Lorem ipsum olor sit</p>
                             </div>
                         </div>
 
                         {/* <!--box--> */}
-                        <div class="why-choose-box">
-                            <i class="fa-solid fa-check">O</i>
+                        <div className="why-choose-box flex justify-start items-center p-5 bg-green-200">
+                            <i className="fa-solid fa-check">O</i>
                             {/* <!-- text --> */}
-                            <div class="why-choose-box-text">
+                            <div className="why-choose-box-text">
                                 <strong>Advance Care</strong>
                                 <p>Lorem ipsum olor sit</p>
                             </div>
                         </div>
 
                         {/* <!--box--> */}
-                        <div class="why-choose-box">
-                            <i class="fa-solid fa-check">O</i>
+                        <div className="why-choose-box">
+                            <i className="fa-solid fa-check">O</i>
                             {/* <!-- text --> */}
-                            <div class="why-choose-box-text">
+                            <div className="why-choose-box-text">
                                 <strong>Advance Care</strong>
                                 <p>Lorem ipsum olor sit</p>
                             </div>
                         </div>
 
                         {/* <!--box--> */}
-                        <div class="why-choose-box">
-                            <i class="fa-solid fa-check">O</i>
+                        <div className="why-choose-box">
+                            <i className="fa-solid fa-check">O</i>
                             {/* <!-- text --> */}
-                            <div class="why-choose-box-text">
+                            <div className="why-choose-box-text">
                                 <strong>Advance Care</strong>
                                 <p>Lorem ipsum olor sit</p>
                             </div>
@@ -53,25 +53,25 @@ export function ChooseUs() {
 
                     </div>
                     {/* <!--btn--> */}
-                    <a href="#" class="why-choose-us-btn"> Make Appointment</a>
+                    <a href="#" className="why-choose-us-btn"> Make Appointment</a>
 
                 </div> {/*  <!--left end--> */}
 
                 {/* <!--right********--> */}
-                <div class="why-choose-us-right">
+                <div className="why-choose-us-right p-12 bg-indigo-700">
                     <h3>Emergency? <hr/>
                         Contact Us
                     </h3>
                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime similique sequi consectetur sint error quidem corrupti, saepe mollitia, eaque, blanditiis dolor laudantium et repudiandae dolores tempore porro quasi tempora neque!</p>
                     {/* <!--container=====--> */}
-                    <div class="w-right-contact-container">
+                    <div className="w-right-contact-container">
 
                         {/* <!-- box====--> */}
-                        <div class="w-right-contact-box">
+                        <div className="w-right-contact-box">
                             {/* <!--icon===--> */}
-                            <i class="fa-solid fa-phone">O</i>
+                            <i className="fa-solid fa-phone">O</i>
                             {/* <!--text===--> */}
-                            <div class="w-right-contact-box-text">
+                            <div className="w-right-contact-box-text">
                                 <span>Call Us Now</span>
                                 <strong>91+ 9960907232</strong>
                             </div>
@@ -79,11 +79,11 @@ export function ChooseUs() {
 
                         
                         {/* <!-- box====--> */}
-                        <div class="w-right-contact-box">
+                        <div className="w-right-contact-box">
                             {/* <!--icon===--> */}
-                            <i class="fa-solid fa-envelope">O</i>
+                            <i className="fa-solid fa-envelope">O</i>
                             {/* <!--text===--> */}
-                            <div class="w-right-contact-box-text">
+                            <div className="w-right-contact-box-text">
                                 <span>Mail Us</span>
                                 <strong>suraj.salve3011@gmail.com</strong>
                             </div>
