@@ -2,6 +2,21 @@ var express = require("express");
 var cors = require("cors");
 var mongoClient = require("mongodb").MongoClient;
 
+const multer = require('multer');
+const path = require('path');
+
+// Configure storage for multer
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, './uploadsdatabase/'); // Directory where files will be stored
+    },
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to file name
+    },
+  });
+  
+const upload = multer({ storage });
+
 var conString = "mongodb://127.0.0.1:27017";
 
 var app = express();
@@ -44,11 +59,12 @@ app.get("/get-users", (req, res)=>{
 app.post("/add-task", (req, res)=>{
      
     var task = {
-        Appointment_Id: parseInt(req.body.Appointment_Id), 
-        Title: req.body.Title,
-        Description: req.body.Description,
-        Date: new Date(req.body.Date),
-        PatientName: req.body.PatientName,
+        patientName: req.body.patientName,
+        mobileNo: parseInt(req.body.mobileNo),
+        specialization: req.body.specialization,
+        doctor: req.body.doctor,
+        date: new Date(req.body.date),
+        slot: req.body.slot,
         UserName: req.body.UserName
     }
 
@@ -64,7 +80,7 @@ app.get("/view-tasks/:username", (req, res)=>{
      
     mongoClient.connect(conString).then(clientObject => {
          var database = clientObject.db("suraj-HealthCare");
-         database.collection("appointments").find({UserId:req.params.user_id}).toArray().then(documents=>{
+         database.collection("appointments").find({UserName:req.params.username}).toArray().then(documents=>{
              res.send(documents);
              res.end();
          });
@@ -76,9 +92,9 @@ app.get("/view-task/:id", (req, res)=>{
     var id= parseInt(req.params.id);
     mongoClient.connect(conString).then(clientObject => {
          var database = clientObject.db("suraj-HealthCare");
-         database.collection("appointments").find({Appointment_Id:id}).toArray().then(documents=>{
-             res.send(documents);
-             res.end();
+         database.collection("appointments").find({patientName:id}).toArray().then(documents=>{
+            res.send(documents);
+            res.end();
          });
     });
 });
@@ -87,7 +103,7 @@ app.delete("/delete-task/:id", (req, res)=>{
     var id = parseInt(req.params.id);
     mongoClient.connect(conString).then(clientObject => {
         var database = clientObject.db("suraj-HealthCare");
-        database.collection("appointments").deleteOne({Appointment_Id:id})
+        database.collection("appointments").deleteOne({patientName:id})
         .then(()=>{
              console.log('Task Deleted');
              res.end();
@@ -97,13 +113,13 @@ app.delete("/delete-task/:id", (req, res)=>{
 
 //=======================Admin Dashboard=================================
 
-app.get("/get-doctors", (req, res)=>{
+app.get("/admin-login", (req, res)=>{
      
     mongoClient.connect(conString).then(clientObject => {
          var database = clientObject.db("suraj-HealthCare");
-         database.collection("doctors").find({}).toArray().then(documents=>{
+         database.collection("admin").find({}).toArray().then(documents=>{
              res.send(documents);
-             console.log(`user Login demo working`)
+             console.log(`user Admin-login Successfully`)
              res.end();
          });
     });
@@ -115,33 +131,68 @@ app.get('/get-appointments', (req,res) => {
         var database = clientObject.db("suraj-HealthCare");
         database.collection("appointments").find({}).toArray().then(documents=>{
             res.send(documents);
-            console.log(`appointments working..!`)
+            console.log(`appointments fetch successfully....!`)
             res.end();
         });
    });
 
 })
 
-app.post("/add-doctors", (req, res)=>{
+app.post("/add-doctors",upload.single('file'), (req, res)=>{
      
     var doctor = {
-        Appointment_Id: parseInt(req.body.Appointment_Id), 
-        Title: req.body.Title,
-        Description: req.body.Description,
-        Date: new Date(req.body.Date),
-        PatientName: req.body.PatientName,
-        UserName: req.body.UserName
+        DoctorName: req.body.DoctorName,
+        DoctorEmail: req.body.DoctorEmail,
+        Password: req.body.Password,
+        Experience: req.body.Experience,
+        Fees:req.body.Fees,
+        Speciality:req.body.Speciality,
+        Education:req.body.Education,
+        Address_1:req.body.slot1,
+        Address_2:req.body.slot2,
+        file:req.body.file
     }
 
     mongoClient.connect(conString).then(clientObject => {
          var database = clientObject.db("suraj-HealthCare");
-         database.collection("doctors").insertOne(doctor).then(()=>{
+         database.collection("alldoctors").insertOne(doctor).then(()=>{
               console.log(`Doctor Added Successfully..!!!`);
               res.end();
          });
     });
 });
 
+app.get('/get-doctors-list', (req,res) => {
+
+    mongoClient.connect(conString).then(clientObject => {
+        var database = clientObject.db("suraj-HealthCare");
+        database.collection("alldoctors").find({}).toArray().then(documents=>{
+            res.send(documents);
+            console.log(`doctor list asccessed successfully..!`)
+            res.end();
+        });
+   });
+
+})
+
+
+
+//---------------------Doctor-Login-------------------------------------
+
+app.get("/get-all-doctors", (req, res)=>{
+     
+    mongoClient.connect(conString).then(clientObject => {
+         var database = clientObject.db("suraj-HealthCare");
+         database.collection("alldoctors").find({}).toArray().then(documents=>{
+             res.send(documents);
+             console.log(`Doctor Login Successfully`)
+             res.end();
+        });
+    });
+});
+
+
+
 app.listen(6060);
-console.log(`Welcome Suraj`)
+console.log(`Welcome Suraj server has been updated`)
 console.log(`Server Started : http://127.0.0.1:6060`);

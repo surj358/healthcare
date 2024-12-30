@@ -5,20 +5,23 @@ import { useCookies } from "react-cookie"
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
+//everything working
+
 
 export function TodoDashBoard(){
 
     const [cookies, setCookie, removeCookie] = useCookies('username');
-    const [appointments, setAppointments] = useState([{Appointment_Id:0, Title:'', Description:'', Date:new Date(), UserId:''}]);
+    const [appointments, setAppointments] = useState([{patientName:'', mobileNo:0, specialization:'', doctor:'', date:new Date(), slot:'', UserName:''}]);
 
     let navigate = useNavigate();
 
     function handleSignout(){
         removeCookie('username');
         navigate('/login');
-        toast.error('user Has Been LogOut',{
-            autoClose:3000
-        })
+        alert('User has Been Logout....!')
+        // toast.error('user Has Been LogOut',{
+        //     autoClose:3000
+        // })
     }
 
     useEffect(()=>{
@@ -37,8 +40,8 @@ export function TodoDashBoard(){
         <div className="grid grid-cols-12 relative top-[150px]">
 
                 <div className="col-span-2 h-[800px]">
-                    <Link to={'/add-task'}><h1 className="p-3 ps-5 cursor-pointer text-black bg-slate-50 my-1 hover:font-semibold hover:bg-blue-50 hover:border-e-4 hover:border-e-blue-600 transition-all duration-500 ">Book Appointments</h1></Link>
-                    <h1 className="p-3 ps-5 cursor-pointer text-black my-1 font-semibold bg-blue-100 border-e-4 border-e-blue-600 transition-all duration-500 ">Appoitnment History</h1>
+                    <Link to={'/book-appointment'}><h1 className="p-3 ps-5 cursor-pointer text-black bg-slate-50 my-1 hover:font-semibold hover:bg-blue-50 hover:border-e-4 hover:border-e-blue-600 transition-all duration-500 ">Book Appointments</h1></Link>
+                    <h1 className="p-3 ps-5 cursor-pointer text-black my-1 font-semibold bg-blue-100 border-e-4 border-e-blue-600 transition-all duration-500 ">Appointment History</h1>
                     <h1 className="p-3 ps-5 cursor-pointer text-black bg-slate-50 my-1 hover:font-semibold hover:bg-blue-50 hover:border-e-4 hover:border-e-blue-600 transition-all duration-500 ">Edit</h1>
                 </div>
 
@@ -46,7 +49,7 @@ export function TodoDashBoard(){
             <div className="relative -top-36 bg-blue-50 p-20 col-span-10">
                 <div className="flex justify-between p-5">
                     <span className="flex text-center">
-                        <h1 className="text-3xl font-semibold uppercase">Mr. {cookies['username']}</h1>
+                        <h1 className="text-3xl font-semibold uppercase">Dear {cookies['username']}</h1>
                         <h1 className="text-2xl top-[2px] relative">- Welcome to the Dashboard....!</h1>
                     </span>
                     <div>
@@ -54,19 +57,32 @@ export function TodoDashBoard(){
                     </div>
                 </div>
 
-                    <div className="rounded-md p-8 shadow-2xl bg-white mt-20">
+                    <div className="rounded-md p-8 shadow-2xl bg-white mt-10">
 
                         {
-                            appointments.map(appointment=> 
-                                <div className=" text-black p-5 rounded-lg mt-5 bg-blue-50">
-                                    <h2>{appointment.Title}</h2>
-                                    <p>{appointment.Description}</p>
-                                    <p>{moment(appointment.Date).format('dddd, MMMM Do YYYY')}</p>
-                                    <Link to={`/delete-task/${appointment.Appointment_Id}`} className="bg-red-500 px-3 py-1 mt-16 text-white rounded-lg" >Cancel Appointment</Link>
-                                </div>
-
+                            appointments.reverse().map(appointment=> 
+                                <div className=" text-black gap-20 flex p-5 rounded-lg mt-5 bg-blue-50">
+                                    <div>
+                                        <div className="flex px-2 py-2">
+                                            <h2 className="me-3">Patient Name :- </h2>
+                                            <h2 className="font-semibold">{appointment.patientName}</h2>
+                                        </div>  
+                                        <div className="flex px-2 py-2"><p className="me-3">Mobile No. :- </p><p className="font-semibold"> {appointment.mobileNo}</p></div>
+                                        <div className="flex px-2 py-2"><p className="me-3">Date :- </p><p className="font-semibold"> {moment(appointment.date).format('dddd, MMMM Do YYYY')}</p></div>
+                                    </div>
+                                    <div>
+                                        <div className="flex px-2 py-2">
+                                            <p className="me-3">Doctor :-</p>
+                                            <p className="font-semibold">{appointment.doctor}</p>    
+                                        </div>  
+                                        <div className="flex px-2 py-2"><p className="me-3">Timing Am/Pm :- </p><p className="font-semibold">{appointment.slot}</p></div>
+                                        <Link to={`/delete-task/${appointments.patientName}`} className="bg-red-500 px-3 py-1 mt-16 text-white rounded-lg relative left-[400px]" >Cancel Appointment</Link>
+                                    </div>                                    
+                                </div>                               
                             )
                         }
+
+
                     </div>
                 
             </div>

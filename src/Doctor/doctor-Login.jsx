@@ -11,7 +11,7 @@ import { useState } from "react";
 export function DoctorLogin() {
 
     let navigate = useNavigate();   
-    const [cookies, setCookie, removeCookie] = useCookies('username')
+    const [cookies, setCookie, removeCookie] = useCookies('doctor')
 
 
     // Form submission handler
@@ -21,16 +21,16 @@ export function DoctorLogin() {
             Password:''
         },
         onSubmit: (user)=> {
-            axios.get(`http://127.0.0.1:6060/get-doctors`)
+            axios.get(`http://127.0.0.1:6060/get-all-doctors`)
             .then(response=> {
-                    var client = response.data.find(record => record.UserName===user.UserName);
+                    var client = response.data.find(record => record.DoctorName===user.UserName);
                     if(client)
                     {
                         if(user.Password===client.Password)
                             {   
                                 alert('User Login Successfully');
-                                setCookie('username', user.UserName);
-                                navigate("/admin-dashboard");
+                                setCookie('doctor', user.UserName);
+                                navigate("/doctor-dashboard");
                                 toast.success('user Login Successfully....!', {
                                   autoClose:3000,
                                 })
@@ -50,7 +50,7 @@ export function DoctorLogin() {
                         //     font: 'bold', 
                         //   }
                         // })
-                        navigate('/admin-login');
+                        navigate('/doctor-login');
                     }
             })
         }

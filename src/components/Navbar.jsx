@@ -6,17 +6,25 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useCookies } from "react-cookie";
 
 
 export function Navbar() {
+
+    const [cookies, setCookie, removeCookie] = useCookies('username');
+
+    const [msg, setMsg] = useState('');
+    const [validClass, setValidClass] = useState('');
 
     let navigate = useNavigate()
 
     const [showMenu, setShowMenu] = useState(false)
     const [open, setOpen] = useState(false);
-  // Function to open the modal
-    const handleOpen = () => setOpen(true);
 
+  // Function to open the modal
+    function handleOpen() {
+      setOpen(true)
+    }
   // Function to close the modal
     const handleClose = () => {      
       setOpen(false)
@@ -46,10 +54,29 @@ export function Navbar() {
     setOpen(false)
   };
 
+
+  function VerifyUserId(e){
+    axios.get(`http://127.0.0.1:6060/get-users`)
+    .then(response=> {
+         for(var user of response.data)
+         
+            {
+                if(user.UserName===e.target.value){
+                     setMsg('User Id Taken - Try Another');
+                     setValidClass('text-red-600 text-base');
+                     break;
+                } else {
+                    setMsg('User Id Available');
+                    setValidClass('text-green-600 text-base');
+                }
+            }
+    })
+
+    
+}
+
     return (
         <div>
-
-          <ToastContainer />
 
             <div className="flex items-center justify-between text-sm pt-4 pb-1 border-b border-b-grey">
                 <div onClick={()=>navigate('/')} className="flex justify-center items-center cursor-pointer">
@@ -88,14 +115,14 @@ export function Navbar() {
                 
                 <div className="flex items-center">
                     <div>
-                      <Link to={'/admin-login'}><Button variant="contained" size="medium" color="primary" sx={{ fontWeight: 'bold',textTransform: 'capitalize', backgroundColor: 'blue' }}>Admin</Button></Link>
-                     <Button variant="contained" size="medium" color="primary" sx={{ fontWeight: 'bold',textTransform: 'capitalize', backgroundColor: 'blue',marginLeft:"5px" }} onClick={handleOpen}> Book Appointmnet</Button>
+                      <Link className=" lg:inline-block sm:hidden" to={'/admin-login'}><Button variant="contained" size="medium" color="primary" sx={{ fontWeight: 'bold',textTransform: 'capitalize', backgroundColor: 'blue' }}>Admin</Button></Link>
+                     <Button variant="contained" size="medium" color="primary" sx={{ fontWeight: 'bold',textTransform: 'capitalize', backgroundColor: 'blue',marginX:"15px" }} onClick={handleOpen}> Book Appointmnet</Button>
                     </div>
 
                     <img onClick={()=> setShowMenu(true)} className="w-6 md:hidden lg:hidden" src={assets.menu_icon} alt="" />
                     <div className={`${showMenu ? 'fixed w-full' : 'h-0 w-0'} md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-white transition-all duration-300 `}>
                       <div className=" mx-3 my-2 border-b-2 pb-5 flex justify-between items-center">
-                        <img  src={assets.logo} alt="" />
+                        <span onClick={() => navigate('/')} className="flex items-center gap-3"><img className="size-24"  src='logo blue.jpg' alt="" /> <h1 className="text-blue-600 font-bold text-4xl">Healthcare</h1></span>
                         <img  className="size-10 cursor-pointer" onClick={() => setShowMenu(false)} src={assets.cross_icon} alt="" />
                       </div>
                       <ul className="flex flex-col items-center gap-2 mt-5 px-5 text-lg font-medium">
@@ -142,6 +169,7 @@ export function Navbar() {
 
                     <TextField
                       label="Your Name"
+                      onKeyUp={VerifyUserId}
                       variant="standard"
                       fullWidth
                       margin="normal"
@@ -149,6 +177,8 @@ export function Navbar() {
                       error={!!errors.UserName}
                       helperText={errors.UserName ? errors.UserName.message : ''}
                     />
+                    <dd className={validClass}> {msg} </dd>
+
                     {/* Email Field */}
                     <TextField
                       label="Email"
@@ -204,6 +234,9 @@ export function Navbar() {
                 </Box>
               </Modal>
             </div>
+
+            <ToastContainer />
+
 
         </div>
     )

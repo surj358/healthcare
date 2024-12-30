@@ -8,7 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export function DoctorDashboard(){
+export function DoctorProfile(){
 
     const [cookies, setCookie, removeCookie] = useCookies('doctor');
     const [appointments, setAppointments] = useState([{patientName:'', mobileNo:0, specialization:'', doctor:'', Date:new Date(), slot:''}]);
@@ -41,9 +41,9 @@ export function DoctorDashboard(){
         <div className="grid grid-cols-12 relative top-[150px]">
 
                 <div className="col-span-2 h-[800px]">
-                    <h1 className="p-3 ps-5 cursor-pointer text-black my-1 font-semibold bg-blue-100 border-e-4 border-e-blue-600 transition-all duration-500 ">Dashboard</h1>
+                    <Link to={'/doctor-dashboard'}><h1 className="p-3 ps-5 cursor-pointer text-black bg-slate-50 my-1 hover:font-semibold hover:bg-blue-50 hover:border-e-4 hover:border-e-blue-600 transition-all duration-500 ">Dashboard</h1></Link>
                     <Link to={'/doctor-appointment'}><h1 className="p-3 ps-5 cursor-pointer text-black bg-slate-50 my-1 hover:font-semibold hover:bg-blue-50 hover:border-e-4 hover:border-e-blue-600 transition-all duration-500 ">Appointments</h1></Link>
-                    <Link to={'/doctor-profile'}><h1 className="p-3 ps-5 cursor-pointer text-black bg-slate-50 my-1 hover:font-semibold hover:bg-blue-50 hover:border-e-4 hover:border-e-blue-600 transition-all duration-500 ">Profile</h1></Link>
+                    <h1 className="p-3 ps-5 cursor-pointer text-black my-1 font-semibold bg-blue-100 border-e-4 border-e-blue-600 transition-all duration-500 ">Profile</h1>
                 </div>
 
         

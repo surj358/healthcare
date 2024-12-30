@@ -39,10 +39,10 @@ export function Login() {
                           {   
                               alert('User Login Successfully');
                               setCookie('username', user.UserName);
-                              navigate("/dashboard");
                               toast.success('user Login Successfully....!', {
                                 autoClose:3000,
                               })
+                              navigate("/dashboard");
                           } else {
                               toast.error('Please enter a Valid Password....!', {
                                 autoClose:4000,
@@ -52,11 +52,9 @@ export function Login() {
                               })
                           }
                   } else {
-                      alert('user not registerd....!');
                       toast.error('You are not Regester User', {
                         autoClose:3000,
                       });
-                      navigate('/login');
                   }
           })
       }
@@ -64,7 +62,7 @@ export function Login() {
     
     return (
 
-        <div>
+        <div className="h-[700px] w-full bg-cover bg-center bg-[url('https://img.freepik.com/free-photo/clipboard-stethoscope_23-2148519763.jpg?t=st=1733475111~exp=1733478711~hmac=ac3139ec40228be5dd89f53e501db271fefc8de18d4d2c771c33717808804bc3&w=1060')]">
 
                 {/* <div style={{position: 'absolute',
                     top: '50%',
@@ -150,7 +148,7 @@ export function Login() {
                     borderRadius: 15,
                     p: 4,}}
 
-                    className=" px-10 py-8 shadow-2xl"
+                    className=" px-10 py-8 shadow-2xl bg-white mt-10"
                   
                 >
                   <div className="text-center mt-2 mb-2">

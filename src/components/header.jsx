@@ -2,24 +2,25 @@ import './header.css';
 import CheckIcon from '@mui/icons-material/Check';
 import SearchIcon from '@mui/icons-material/Search'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
+import { Link } from 'react-router-dom';
 
 export function Header() {
     return (
 
     <div>
 
-        <div className='pt-14 lg:px-20 bg-blue-50'>
+        <div className='pt-14 lg:px-20 bg-blue-50 sm:px-5'>
             <div className="grid lg:grid-cols-2 sm:grid-cols-1">
                 <div className="flex flex-col mt-8">
                     <h1 className='text-4xl font-bold'>Feel Better About Finding Healthcare</h1>
                     <p className='my-10 tracking-wide leading-8 text-lg'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure sunt repellat exercitationem est facilis eos sapiente illo quo at nam vitae doloremque architecto, deserunt dolorum minima a impedit officia ratione?</p>
                     <div className="flex items-center justify-start ">
-                        <a className='h-11 p-4 bg-blue-950 text-white items-center flex justify-center font-bold lg:text-base rounded-md tracking-wide mr-3 '>
+                        <Link to={'/doctor'}><a className='h-11 p-4 bg-blue-950 text-white items-center flex justify-center font-bold lg:text-base rounded-md tracking-wide mr-3 '>
                             <SearchIcon className='w-4 h-4 p-1 rounded-full bg-blue-600 mr-2 size-2' />
-                            Find a Doctor</a>            
+                            Find a Doctor</a></Link>         
                         
-                        <a className='h-11 p-4 bg-blue-950 text-white items-center  flex justify-center font-bold lg:text-base rounded-md tracking-wide mr-3 '>
-                            <CheckIcon className='w-4 h-4 p-1 rounded-full bg-blue-600 mr-2 size-2 "' /> Book Appointment </a>
+                        <Link to={'/dashboard'}><a className='h-11 p-4 bg-blue-950 text-white items-center  flex justify-center font-bold lg:text-base rounded-md tracking-wide mr-3 '>
+                            <CheckIcon className='w-4 h-4 p-1 rounded-full bg-blue-600 mr-2 size-2 "' /> Book Appointment </a></Link>
                     </div>
                 </div>
 

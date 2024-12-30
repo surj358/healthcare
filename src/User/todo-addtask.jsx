@@ -1,260 +1,180 @@
-import axios from "axios";
-import { useFormik } from "formik";
-import { useCookies } from "react-cookie";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import {Box} from "@mui/material";
-import { TextField, MenuItem, Button, Grid, FormControl, InputLabel, Select, InputAdornment, Grid2 } from '@mui/material';
-import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import React, { useState } from "react";
+import { useFormik,Formik, Form, Field } from "formik";
+import { TextField, MenuItem, Select, InputLabel, FormControl, Button, Box,} from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
-import moment from 'moment';
+import dayjs, { Dayjs } from "dayjs";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useCookies } from "react-cookie";
 
-const currencies = [
-    {
-      value: 'Dr. Siddhanth Gaikwad',
-      label: 'Dr. Siddhanth Gaikwad',
-      speciality: 'General Physician'
-    },
-    {
-      value: 'Dr. RAjratna Kharat',
-      label: 'Dr. RAjratna Kharat',
-      speciality: 'Gynecologist'
-    },
-    {
-      value: 'Dr. Suraj Shahane',
-      label: 'Dr. Suraj Shahane',
-      speciality: 'Dermatologist'
-    },
-    {
-      value: 'Pawan More',
-      label: 'Pawan More',
-      speciality: 'Pediatricians'
-    },
-  ];
-  
-  const Speciality = [
-    {
-      value: 'General Physician',
-      label: 'General Physician',
-    },
-    {
-      value: 'Gynecologist',
-      label: 'Gynecologist',
-    },
-    {
-      value: 'Dermatologist',
-      label: 'Dermatologist',
-    },
-    {
-      value: 'Pediatricians',
-      label: 'Pediatricians',
-    },
-    {
-      value: 'Neurologist',
-      label: 'Neurologist',
-    },
-    {
-      value: 'Gastroenterologist',
-      label: 'Gastroenterologist',
-    },
-  ];
+const specializations = [
+  { id: 1, label: "GeneralPhysician" },
+  { id: 2, label: "Gynecologist" },
+  { id: 3, label: "Dermatologist" },
+  { id: 4, label: "Pediatricians" },
+  { id: 5, label: "Neurologist" },
+  { id: 6, label: "Gastroenterologist" },
+];
+
+const doctors = {
+  GeneralPhysician: ["Dr. Siddhant Gaikwad", "Dr. Nikhil Pawar", "Dr. Chloe Evans"],
+  Gynecologist: ["Dr. Rajratna Kharat", "Dr. Shubham Sherkar", "Dr. Ryan Martinez"],
+  Dermatologist: ["Dr. Suraj Shahane", "Dr. Ava Mitchell", "Dr. Amelia Hill"],
+  Pediatricians: ["Dr. Pawan More", "Dr. Jeffrey King"],
+  Neurologist: ["Dr. Ruchira Bhangale", "Dr. Zoe Kelly" , "Dr. Patrick Harries"],
+  Gastroenterologist: ["Dr. Taylor", "Dr. Anderson"],
+
+};
+
+const slots = Array.from({ length: 12 }, (_, i) => ({
+  value: `${10 + i}:00 - ${11 + i}:00`,
+  label: `${10 + i}:00 - ${11 + i}:00`,
+}));
+
+export function ToDoAddTask() {
+
+  const [cookies, setCookie, removeCookie] = useCookies('username');
+
+  let navigate = useNavigate()
 
 
+  const initialValues = {
+    patientName: "",
+    mobileNo: "",
+    specialization: "",
+    doctor: "",
+    date: Dayjs,
+    slot: "",
+    UserName:cookies['username']
+  };
 
-export function ToDoAddTask(){
-
-    const [cookies, setCookie, removeCookie] = useCookies('username');
-    let navigate = useNavigate();
-    
-    const [selectedSpeciality, setSelectedSpeciality] = useState('');
-    const [filteredDoctors, setFilteredDoctors] = useState(currencies);
-
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [selectedSlot, setSelectedSlot] = useState('');
-    const [error, setError] = useState('');
-
-     // Generate time slots from 10 AM to 10 PM
-        const generateTimeSlots = () => {
-            const slots = [];
-            for (let hour = 10; hour < 22; hour++) {
-            const start = moment().startOf('day').hour(hour).minute(0);
-            const end = start.clone().add(1, 'hour');
-            slots.push({
-                label: `${start.format('h:mm A')} - ${end.format('h:mm A')}`,
-                value: `${start.format('HH:mm')}-${end.format('HH:mm')}`,
-            });
-            }
-            return slots;
-        };
-
-        // Handle Date Change
-        const handleDateChange = (date) => {
-            setSelectedDate(date);
-            setSelectedSlot('');
-            setError('');
-        };
-
-        // Handle Time Slot Change
-        const handleSlotChange = (event) => {
-            setSelectedSlot(event.target.value);
-        };
-
-        // Handle form submission
-        const handleSubmit = (event) => {
-            event.preventDefault();
-            if (!selectedDate || !selectedSlot) {
-            setError('Please select a date and a time slot.');
-            } else {
-            setError('');
-            alert(`Booking Confirmed! Date: ${selectedDate.format('DD-MM-YYYY')} Time: ${selectedSlot}`);
-            }
-        };
-
-        // Handle change in speciality dropdown
-            const handleSpecialityChange = (event) => {
-            const selected = event.target.value;
-            setSelectedSpeciality(selected);
-
-            // Filter doctors based on the selected speciality
-            const doctorsBySpeciality = currencies.filter((doctor) => doctor.speciality === selected);
-            setFilteredDoctors(doctorsBySpeciality);
-            };
-
-
-    const formik = useFormik({
-        initialValues: {
-            Appointment_Id:0, 
-            Title: '',
-            Description:'',
-            Date:'',
-            PatientName:'',
-            UserName:cookies['username']
-        },
-        onSubmit: (task) => {
-            axios.post(`http://127.0.0.1:6060/add-task`, task);
-            alert('Task Added Successfully..');
+  const handleSubmit = (task) => {
+    axios.post(`http://127.0.0.1:6060/add-task`, task);
+            toast.success('Appointment has been confirmed');
+            alert('appointment Book Successfully..');
             navigate('/dashboard');
-        }
-    })
+  };
 
-    return(
-        <div className="grid grid-cols-12 relative top-[150px]">
+  return (
 
-            <div className="col-span-2 h-[800px]">
-                <h1 className="p-3 ps-5 cursor-pointer text-black  my-1 font-semibold bg-blue-100 border-e-4 border-e-blue-600 transition-all duration-500 ">Book Appointments</h1>
-                <Link to={'/dashboard'}><h1 className="p-3 ps-5 cursor-pointer text-black bg-slate-50 my-1 hover:font-semibold hover:bg-blue-50 hover:border-e-4 hover:border-e-blue-600 transition-all duration-500 ">Appoitnment History</h1></Link>
-                <h1 className="p-3 ps-5 cursor-pointer text-black bg-slate-50 my-1 hover:font-semibold hover:bg-blue-50 hover:border-e-4 hover:border-e-blue-600 transition-all duration-500 ">Edit</h1>
-            </div>
+    <div className="grid grid-cols-12 relative top-[150px]">
 
+                <div className="col-span-2 h-[800px]">
+                    <h1 className="p-3 ps-5 cursor-pointer text-black my-1 font-semibold bg-blue-100 border-e-4 border-e-blue-600 transition-all duration-500 ">Book Appointment</h1>
+                    <Link to={'/dashboard'}><h1 className="p-3 ps-5 cursor-pointer text-black bg-slate-50 my-1 hover:font-semibold hover:bg-blue-50 hover:border-e-4 hover:border-e-blue-600 transition-all duration-500 ">Appointment History</h1></Link>
+                    <h1 className="p-3 ps-5 cursor-pointer text-black bg-slate-50 my-1 hover:font-semibold hover:bg-blue-50 hover:border-e-4 hover:border-e-blue-600 transition-all duration-500 ">Edit</h1>
+                </div>
 
-            <div className="relative -top-36 bg-blue-50 p-20 col-span-10">
-                <div className="bg-white shadow-lg mx-auto w-[700px] p-16">
-                    <div className="text-2xl text-center justify-center mb-10 flex font-semibold"> <h1 className="bg-blue-100 px-4  text-lg rounded-md shadow-xl">{cookies['username']}</h1> - Book Your Appointments </div>
-                    <form onSubmit={formik.handleSubmit} className="w-25">
-                        <dl>
-                            <dt>Appointment Id</dt>
-                            <dd><input type="number" name="Appointment_Id" onChange={formik.handleChange} className="form-control" /></dd>
-                            <dt>Patient Name</dt>
-                            <dd><input type="text" name="PatientName" onChange={formik.handleChange}/></dd>
-                            <dt>Title</dt>
-                            <dd><input type="text" name="Title" onChange={formik.handleChange} className="form-control" /></dd>
-                            <dt>Description</dt>
-                            <dd>
-                                <textarea rows="4" name="Description" onChange={formik.handleChange} className="form-control" cols="40"></textarea>
-                            </dd>
-                            <dt>Date</dt>
-                            <dd><input type="date" name="Date" onChange={formik.handleChange} className="form-control" /></dd>
-                        </dl>
-                        <button type="submit" className="btn btn-warning w-50">Submit</button>
-                        <Link className="btn btn-danger w-50" to="/dashboard">Cancel</Link>
-                        <div className="flex justify-between mt-10">
-                         <dd><TextField id="standard-basic" type="text" label="Patient Name" variant="standard" /> </dd>
-                         <dd><TextField id="standard-basic" type="number" label="Mobile No." variant="standard" /></dd> 
-                        </div>
+                <div className="relative -top-36 bg-blue-50 p-20 col-span-10">
+                
+                  <h2 className="text-center text-2xl font-semibold">{cookies['username']}- Book your Appointment </h2>
+                    
+                    <div className="rounded-md p-8 shadow-2xl bg-white mt-10">
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+                          {({ values, setFieldValue }) => (
+                            <Form>
+                              <Box
+                                sx={{display: "flex",flexDirection: "column",gap: 3,maxWidth: 400,margin: "auto",mt: 5,}}>
+                                {/* Patient Name */}
+                                <Field
+                                  as={TextField}
+                                  name="patientName"
+                                  label="Patient Name"
+                                  variant="outlined"
+                                  fullWidth
+                                  required
+                                />
 
-                       {/* update new one============================--------------------------- */}
+                                {/* Mobile Number */}
+                                <Field as={TextField} name="mobileNo" label="Mobile Number" type="tel" variant="outlined" fullWidth require />
 
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                {/* Specialization */}
+                                <FormControl fullWidth required>
+                                  <InputLabel>Specialization</InputLabel>
+                                  <Select
+                                    value={values.specialization}
+                                    onChange={(e) => {
+                                      setFieldValue("specialization", e.target.value);
+                                      setFieldValue("doctor", ""); // Reset doctor when specialization changes
+                                    }}
+                                  >
+                                    {specializations.map((spec) => (
+                                      <MenuItem key={spec.id} value={spec.label}>
+                                        {spec.label}
+                                      </MenuItem>
+                                    ))}
+                                  </Select>
+                                </FormControl>
 
-                        <div className="flex justify-between mt-10">
-                            <dd>
-                                <TextField sx={{width:'200px'}}
-                                id="speciality-select"
-                                select
-                                label="Select Speciality"
-                                value={selectedSpeciality}
-                                onChange={handleSpecialityChange}
-                                helperText="Please select a speciality"
-                                variant="standard"
-                                >
-                                {Speciality.map((option) => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
-                                    </MenuItem>
-                                ))}
-                                </TextField>
-                            </dd>
+                                {/* Doctor */}
+                                <FormControl fullWidth required disabled={!values.specialization}>
+                                  <InputLabel>Doctor</InputLabel>
+                                  <Select
+                                    value={values.doctor}
+                                    onChange={(e) => setFieldValue("doctor", e.target.value)}
+                                  >
+                                    {(doctors[values.specialization] || []).map((doc, index) => (
+                                      <MenuItem key={index} value={doc}>
+                                        {doc}
+                                      </MenuItem>
+                                    ))}
+                                  </Select>
+                                </FormControl>
 
-                            <dd>
-                                <TextField sx={{width:'200px'}}
-                                id="doctor-select"
-                                select
-                                label="Select Doctor"
-                                helperText="Please select a doctor"
-                                variant="standard"
-                                >
-                                {filteredDoctors.map((doctor) => (
-                                    <MenuItem key={doctor.value} value={doctor.value}>
-                                    {doctor.label}
-                                    </MenuItem>
-                                ))}
-                                </TextField>                               
-                            </dd>
-                            </div>
+                                {/* Date Picker */}
+                                <Box sx={{ width: "100%" }}>
+                                  <DatePicker
+                                    label="Select Date"
+                                    name="date"
+                                    value={values.date}
+                                    disablePast
+                                    onChange={(date) => setFieldValue("date", date)}
+                                    shouldDisableDate={(date) =>
+                                      date.isBefore(dayjs()) || date.isAfter(dayjs().add(7, "day"))
+                                    }
+                                    renderInput={(params) => (
+                                      <TextField {...params} fullWidth required />
+                                    )}
+                                  />
+                                </Box>
 
-                            <div className="flex mt-10 justify-between gap-16">
-                            
-                            <Box sx={{marginTop:1, width:'200px'}} >
-                                  <DatePicker  label="Select Date" value={selectedDate} disablePast onChange={handleDateChange} shouldDisableDate={(date) => date.isBefore(dayjs()) || date.isAfter(dayjs().add(7, "day"))}renderInput={(params) => <Box component="div" {...params} />}/>
-                            </Box>
-                            <dd>
-                                  <TextField sx={{width:'200px'}}
-                                    id="doctor-select"
-                                    select
-                                    helperText="Please select a slot"
-                                    variant="standard"
-                                    labelId="slot-select-label"
-                                    value={selectedSlot}
-                                    size="small"
-                                    onChange={handleSlotChange}
-                                    label="Select Time Slot"
-                                    disabled={!selectedDate} // Disable time slot selector until date is selected
-                                >
-                                  {generateTimeSlots().map((slot) => (
-                                      <MenuItem key={slot.value} value={slot.value}>
+                                {/* Slot */}
+                                <FormControl fullWidth required>
+                                  <InputLabel>Slot</InputLabel>
+                                  <Select
+                                    value={values.slot}
+                                    onChange={(e) => setFieldValue("slot", e.target.value)}
+                                  >
+                                    {slots.map((slot, index) => (
+                                      <MenuItem key={index} value={slot.value}>
                                         {slot.label}
                                       </MenuItem>
                                     ))}
+                                  </Select>
+                                </FormControl>
 
-                                  </TextField>
-                            </dd>
-                            </div>
+                                {/* Submit Button */}
+                                <Button
+                                  type="submit"
+                                  variant="contained"
+                                  color="primary"
+                                  fullWidth
+                                >
+                                  Book Appointment
+                                </Button>
+                              </Box>
+                            </Form>
+                          )}
+                        </Formik>
+                      </LocalizationProvider>
+                    </div>  
 
-                            </LocalizationProvider>
-
-                                              
-                    </form>
-
-                    <div>
-
-
-            </div>
                 </div>
 
-            </div>
-
         </div>
-        
-    )
-}
+  );
+};

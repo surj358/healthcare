@@ -1,40 +1,49 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import { Accordion, Info } from "../components/accordian";
 import { Footer } from "../components/footer";
 
+import React, { useState, useEffect } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
 export function About() {
 
-    // const [manifest, setManifest] = useState({icons:[{src:"", sizes:"", type:""}]});
-    
-    // function Loadproducts() {
-    //     axios.get("manifest.json")
-    //     .then((response)=> {
-    //         setManifest(response.data);
-    //     })
-    //     .catch((response)=>{
-    //         console.log(response);
-    //     })
-    // }
+    const [submittedData, setSubmittedData] = useState(null);
 
-    // useEffect(()=>{
-    //     Loadproducts();
-    // })
+  // Form validation schema
+  const validationSchema = Yup.object({
+    firstName: Yup.string().required("First name is required"),
+    lastName: Yup.string().required("Last name is required"),
+    file: Yup.mixed()
+      .required("A file is required")
+      .test("fileSize", "File too large", (value) => !value || (value && value.size <= 1024 * 1024))
+      .test("fileType", "Unsupported file format", (value) =>
+        !value || (value && ["image/jpeg", "image/png"].includes(value.type))
+      ),
+  });
+
+  const handleSubmit = async (values, { setSubmitting }) => {
+    const formData = new FormData();
+    formData.append("firstName", values.firstName);
+    formData.append("lastName", values.lastName);
+    formData.append("file", values.file);
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      setSubmittedData(response.data);
+    } catch (error) {
+      console.error("Error uploading data", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
     return (
+
         <div>
-            {/* <div>
-                { manifest.icons.map((item, index)=>(
-                        <div>
-                            <h1>{item.src}</h1>
-                            <h2>{item.sizes}</h2>
-                            <div>
-                                <p>{item.type}</p>
-                            </div>
-                        </div>
-                    ))}
-            </div> */}
 
             <div className="text-center text-2xl pt-10 text-gray-500" >
                 <p>ABOUT <span className="text-gray-700 font-medium">Us</span></p>
@@ -70,6 +79,48 @@ export function About() {
             </div>
 
             <Info />
+
+            <div className="flex justify-center items-center" style={{ padding: "20px" }}>
+      <h2>Upload Form</h2>
+      <Formik
+        initialValues={{ firstName: "", lastName: "", file: null }}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ setFieldValue, isSubmitting }) => (
+          <Form>
+            <div>
+              <label>First Name:</label>
+              <Field type="text" name="firstName" />
+              <ErrorMessage name="firstName" component="div" style={{ color: "red" }} />
+            </div>
+            <div>
+              <label>Last Name:</label>
+              <Field type="text" name="lastName" />
+              <ErrorMessage name="lastName" component="div" style={{ color: "red" }} />
+            </div>
+            <div>
+              <label>File Upload:</label>
+              <input
+                type="file"
+                name="file"
+                onChange={(event) => setFieldValue("file", event.currentTarget.files[0])}
+              />
+              <ErrorMessage name="file" component="div" style={{ color: "red" }} />
+            </div>
+            <button type="submit" disabled={isSubmitting}>
+              Submit
+            </button>
+          </Form>
+        )}
+      </Formik>
+      {submittedData && (
+        <div style={{ marginTop: "20px" }}>
+          <h3>Submitted Data:</h3>
+          <pre>{JSON.stringify(submittedData, null, 2)}</pre>
+        </div>
+      )}
+    </div>
             <Footer />
         </div>
     )

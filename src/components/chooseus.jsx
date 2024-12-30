@@ -1,4 +1,8 @@
 import './chooseus.css';
+import { Link } from 'react-router-dom';
+import AddTaskIcon from '@mui/icons-material/AddTask';
+import EmailIcon from '@mui/icons-material/Email';
+import CallIcon from '@mui/icons-material/Call';
 
 export function ChooseUs() {
     return (
@@ -13,7 +17,7 @@ export function ChooseUs() {
                     <div className='grid lg:grid-cols-2 sm:grid-cols-1 mt-5 gap-2'>
                         {/* <!--box--> */}
                         <div className="why-choose-box align-center p-5 bg-green-600">
-                            <i className="fa-solid fa-check">O</i>
+                            <i><AddTaskIcon/></i>
                             {/* <!-- text --> */}
                             <div className="why-choose-box-text">
                                 <strong>Advance Care</strong>
@@ -23,7 +27,7 @@ export function ChooseUs() {
 
                         {/* <!--box--> */}
                         <div className="why-choose-box flex justify-start items-center p-5 bg-green-200">
-                            <i className="fa-solid fa-check">O</i>
+                            <i><AddTaskIcon/></i>
                             {/* <!-- text --> */}
                             <div className="why-choose-box-text">
                                 <strong>Advance Care</strong>
@@ -33,8 +37,8 @@ export function ChooseUs() {
 
                         {/* <!--box--> */}
                         <div className="why-choose-box">
-                            <i className="fa-solid fa-check">O</i>
-                            {/* <!-- text --> */}
+                            <i><AddTaskIcon/></i>
+                        {/* <!-- text --> */}
                             <div className="why-choose-box-text">
                                 <strong>Advance Care</strong>
                                 <p>Lorem ipsum olor sit</p>
@@ -43,8 +47,8 @@ export function ChooseUs() {
 
                         {/* <!--box--> */}
                         <div className="why-choose-box">
-                            <i className="fa-solid fa-check">O</i>
-                            {/* <!-- text --> */}
+                            <i><AddTaskIcon/></i>
+                        {/* <!-- text --> */}
                             <div className="why-choose-box-text">
                                 <strong>Advance Care</strong>
                                 <p>Lorem ipsum olor sit</p>
@@ -53,7 +57,7 @@ export function ChooseUs() {
 
                     </div>
                     {/* <!--btn--> */}
-                    <a href="#" className="why-choose-us-btn"> Make Appointment</a>
+                    <Link to='/dashboard'><a className="why-choose-us-btn"> Make Appointment</a></Link>
 
                 </div> {/*  <!--left end--> */}
 
@@ -69,7 +73,7 @@ export function ChooseUs() {
                         {/* <!-- box====--> */}
                         <div className="w-right-contact-box">
                             {/* <!--icon===--> */}
-                            <i className="fa-solid fa-phone">O</i>
+                            <i><CallIcon/></i>
                             {/* <!--text===--> */}
                             <div className="w-right-contact-box-text">
                                 <span>Call Us Now</span>
@@ -81,7 +85,7 @@ export function ChooseUs() {
                         {/* <!-- box====--> */}
                         <div className="w-right-contact-box">
                             {/* <!--icon===--> */}
-                            <i className="fa-solid fa-envelope">O</i>
+                            <i><EmailIcon/></i>
                             {/* <!--text===--> */}
                             <div className="w-right-contact-box-text">
                                 <span>Mail Us</span>

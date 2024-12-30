@@ -13,7 +13,7 @@ export function AdminLogin() {
 
     let navigate = useNavigate();
     
-    const [cookies, setCookie, removeCookie] = useCookies('username')
+    const [cookies, setCookie, removeCookie] = useCookies('userid')
 
     // Form submission handler
     const formik = useFormik({
@@ -22,7 +22,7 @@ export function AdminLogin() {
           Password:''
       },
       onSubmit: (user)=> {
-          axios.get(`http://127.0.0.1:6060/get-doctors`)
+          axios.get(`http://127.0.0.1:6060/admin-login`)
           .then(response=> {
                   var client = response.data.find(record => record.UserName===user.UserName);
                   if(client)
@@ -30,7 +30,7 @@ export function AdminLogin() {
                       if(user.Password===client.Password)
                           {   
                               alert('User Login Successfully');
-                              setCookie('username', user.UserName);
+                              setCookie('userid', user.UserName);
                               navigate("/admin-dashboard");
                               toast.success('user Login Successfully....!', {
                                 autoClose:3000,
@@ -59,7 +59,7 @@ export function AdminLogin() {
     
     return (
 
-        <div>
+        <div className="bg-blue-100">
 
                 <div style={{position: 'absolute',
                     top: '50%',

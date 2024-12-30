@@ -5,7 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 export function ToDoRemoveTask(){
 
-    const [appointments, setAppointments] = useState([{Appointment_Id:0, Title:'', Description:'', Date:new Date(), UserId:''}]);
+    const [appointments, setAppointments] = useState([{patientName:'', mobileNo:0, specialization:'', doctor:'', Date:new Date(), slot:'', UserName:''}]);
 
     let params = useParams();
     let navigate = useNavigate();
@@ -30,9 +30,9 @@ export function ToDoRemoveTask(){
             <h3>Are your sure? Want to Delete Task?</h3>
             <dl>
                 <dt>Title</dt>
-                <dd>{appointments[0].Title}</dd>
+                <dd>{appointments[0].patientName}</dd>
                 <dt>Description</dt>
-                <dd>{appointments[0].Description}</dd>
+                <dd>{appointments[0].UserName}</dd>
                 <dt>Date</dt>
                 <dd> {moment(appointments[0].Date).format('Do MMMM, YYYY')} </dd>
             </dl>

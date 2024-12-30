@@ -7,6 +7,7 @@ import { Specialist } from "../components/specialist";
 import { About } from "./About";
 import { Footer } from "../components/footer";
 import { useState } from "react";
+import { Feedback } from "../components/feedback";
 
 export function Home() {
     return (
@@ -18,6 +19,7 @@ export function Home() {
             <Services />
             <ChooseUs />
             <Specialist />
+            <Feedback />
             <Footer />
         </div>
     )
