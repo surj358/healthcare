@@ -1,5 +1,4 @@
 import axios from "axios";
-import moment from "moment";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie"
 import { Link, useNavigate } from "react-router-dom";
@@ -12,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export function DoctorList() {
 
     const [cookies, setCookie, removeCookie] = useCookies('userid');
-    const [alldoctors, setAllDoctors] = useState([{DoctorName:'', Education:"", file:""}]);
+    const [alldoctors, setAllDoctors] = useState([{DoctorName:'', Speciality:"",Experience:"",Fees:"", Education:""}]);
 
     let navigate = useNavigate();
 
@@ -57,24 +56,41 @@ export function DoctorList() {
                     </div>
                 </div>
 
-                    <div className="rounded-md p-8 grid grid-cols-4 gap-5 shadow-2xl bg-white mt-10">
+                <div>
+                    <div className="p-4 border-b-2 border-blue-600 shadow-md bg-white">
+                        <h1 className="text-2xl font-bold">
+                            Total Doctors: <span className="text-blue-600">{alldoctors.length}</span>
+                        </h1>
+                    </div>
+                </div>
+
+                <div className="bg-white mt-2 shadow-md text-center border-1">
                         {
                             alldoctors.map(alldoctors =>
-                                <div className="bg-yellow-400 p-2 mb-4">
-                                    <div className="flex px-2 py-2">
-                                        <h2 className="me-3">DoctorName :- </h2>
-                                        <h2>{alldoctors.DoctorName}</h2>
-                                    </div>  
-                                    <div className="flex px-2 py-2"><p className="me-3">Education :- </p><p >{alldoctors.Education}</p></div>
-                                    {/* <div className="flex px-2 py-2"><p className="me-3">Date :- </p><p> {moment(appointments.Date).format('dddd, MMMM Do YYYY')}</p></div> */}
-                                    
-                                    <div className="flex flex-col px-2 py-2"><p>Fees :-</p><p> {alldoctors.Fees} </p></div>
-                                    <img src={alldoctors.file} alt="" />
+                                <div className="grid grid-cols-12 justify-evenly px-2 py-2 cursor-pointer hover:bg-gray-100 border-b-2 duration-300">
+                                    <div className="col-span-3 px-2 py-2 flex justify-start">
+                                        <h2 className="uppercase font-semibold ps-5">{alldoctors.DoctorName}</h2>
+                                    </div>
+                                    <div className="col-span-3 justify-start text-center px-2 py-2">
+                                        <h2>{alldoctors.Speciality}</h2>
+                                    </div> 
+                                    <div className="col-span-2 justify-start px-2 py-2">
+                                        <h2>{alldoctors.Experience}</h2>
+                                    </div> 
+                                    <div className="col-span-1 justify-center px-2 py-2"><p >{alldoctors.Education}</p></div>                                    
+                                    <div className="col-span-2 justify-center flex px-2 py-2"> <p className="font-bold px-1">$</p><p> {alldoctors.Fees}</p></div>
+                                    <div className="justify-center px-2 py-2" > 
+                                        <Link to={`/remove-doc/${alldoctors.DoctorName}`}
+                                        className="col-span-1 justify-center pe-5 px-2 py-2 text-red-500 underline">
+                                        Remove 
+                                        </Link>
+                                    </div>                                        
+                               
                                </div>
                             )
                         }
 
-                    </div>
+                </div>
                 
             </div>
 

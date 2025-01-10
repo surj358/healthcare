@@ -57,6 +57,14 @@ export function AdminDashboard(){
                     </div>
                 </div>
 
+                <div className="rounded-md flex items-center p-5 shadow-lg bg-white my-10">
+                    <img className="w-10 me-2" src="./appointment.png" alt="" />
+                    <h1 className="text-xl px-2">
+                        All Apointments History till to Date
+                        <span className="font-bold mx-2">{appointments.length}</span>
+                    </h1>
+                </div>
+
                     <div className="bg-white shadow-md text-center mt-10 grid grid-cols-12 border-2">
                         
                         <div className="p-3 font-bold col-span-3 ">
@@ -81,7 +89,7 @@ export function AdminDashboard(){
                         
                     </div>
 
-                    <div className="bg-white mt-2 shadow-md text-center border-1">
+                    {/* <div className="bg-white mt-2 shadow-md text-center border-1">
                         
                         {
                             appointments.map(appointments =>
@@ -96,7 +104,47 @@ export function AdminDashboard(){
                             )
                         }
                         
-                    </div>                
+                    </div>                 */}
+
+                    <div className="bg-white mt-2 shadow-md text-center border-1">
+                    {
+                        appointments.slice().reverse().map((appointment) => {
+                        // Compare the appointment date with the current date
+                        const isCompleted = moment(appointment.date).isBefore(moment(), "day");
+
+                        return (
+                            <div 
+                            className="grid grid-cols-12 justify-evenly px-2 py-2 cursor-pointer hover:bg-gray-100 border-b-2 duration-300"
+                            key={appointment.id}
+                            >
+                            <div className="col-span-3 uppercase justify-center px-2 py-2 text-center">
+                                <h2>{appointment.patientName}</h2>
+                            </div>
+                            <div className="col-span-2 justify-center text-center px-2 py-2">
+                                <p>{moment(appointment.date).format('ddd, Do MMM YYYY')}</p>
+                            </div>
+                            <div className="col-span-3 px-2 py-2">
+                                <p>{appointment.doctor}</p>
+                            </div>
+                            <div className="col-span-2 px-2 py-2">
+                                <p>{appointment.slot}</p>
+                            </div>
+                            <div className="col-span-2 px-2 py-2">
+                                {/* Add status here */}
+                                {isCompleted ? (
+                                <span className="text-green-600 font-bold">Completed</span>
+                                ) : (
+                                <span className="bg-yellow-400 text-black px-5 py-1 rounded-md font-bold">
+                                    Upcoming
+                                </span>
+                                )}
+                            </div>
+                            </div>
+                        );
+                        })
+                    }
+                    </div>
+
             </div>
 
             <div>

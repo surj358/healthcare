@@ -2,6 +2,9 @@ var express = require("express");
 var cors = require("cors");
 var mongoClient = require("mongodb").MongoClient;
 
+
+// const stripe = require("stripe")("sk_test_51QcKtjQpXkT48pRJywzV1nUgNwSdAC0gX9doinaicGAxm8JEA5pJJKhAUderLRv1UYLfupMo8dHLTD7nCyNA3SRI00BX0DUh15");
+
 const multer = require('multer');
 const path = require('path');
 
@@ -23,6 +26,34 @@ var app = express();
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+
+
+// app.post("/create-checkout-session", async (req, res) => {
+//     try {
+//       const session = await stripe.checkout.sessions.create({
+//         payment_method_types: ["card"],
+//         line_items: [
+//           {
+//             price_data: {
+//               currency: "usd",
+//               product_data: {
+//                 name: "Example Product",
+//               },
+//               unit_amount: 1000, // Price in cents
+//             },
+//             quantity: 1,
+//           },
+//         ],
+//         mode: "payment",
+//         success_url: "http://localhost:3000/success",
+//         cancel_url: "http://localhost:3000/cancel",
+//       });
+  
+//       res.json({ id: session.id });
+//     } catch (error) {
+//       res.status(500).json({ error: error.message });
+//     }
+//   });
 
 
 app.post("/register-user", (req, res)=>{
@@ -65,6 +96,7 @@ app.post("/add-task", (req, res)=>{
         doctor: req.body.doctor,
         date: new Date(req.body.date),
         slot: req.body.slot,
+        status: req.body.status,
         UserName: req.body.UserName
     }
 
@@ -89,7 +121,10 @@ app.get("/view-tasks/:username", (req, res)=>{
 
 app.get("/view-task/:id", (req, res)=>{
      
-    var id= parseInt(req.params.id);
+    var id= (req.params.id);
+     // var id = parseInt(req.params.id);
+    // { if value is in normalize. form we have to use parseInt } 
+
     mongoClient.connect(conString).then(clientObject => {
          var database = clientObject.db("suraj-HealthCare");
          database.collection("appointments").find({patientName:id}).toArray().then(documents=>{
@@ -100,13 +135,18 @@ app.get("/view-task/:id", (req, res)=>{
 });
 
 app.delete("/delete-task/:id", (req, res)=>{
-    var id = parseInt(req.params.id);
+    var id = (req.params.id);
+
+    // var id = parseInt(req.params.id);
+    // { if value is in normalize. form we have to use parseInt }
+
+
     mongoClient.connect(conString).then(clientObject => {
         var database = clientObject.db("suraj-HealthCare");
         database.collection("appointments").deleteOne({patientName:id})
         .then(()=>{
-             console.log('Task Deleted');
-             res.end();
+             console.log('Appointment Deleted');
+             res.end();             
         })
     });
 })
@@ -175,6 +215,38 @@ app.get('/get-doctors-list', (req,res) => {
 
 })
 
+app.get("/view-doctor/:id", (req, res)=>{
+     
+    var id= (req.params.id);
+     // var id = parseInt(req.params.id);
+    // { if value is in normalize. form we have to use parseInt } 
+
+    mongoClient.connect(conString).then(clientObject => {
+         var database = clientObject.db("suraj-HealthCare");
+         database.collection("alldoctors").find({DoctorName:id}).toArray().then(documents=>{
+            res.send(documents);
+            res.end();
+         });
+    });
+});
+
+app.delete("/delete-doctor/:id", (req, res)=>{
+    var id = (req.params.id);
+
+    // var id = parseInt(req.params.id);
+    // { if value is in normalize. form we have to use parseInt }
+
+
+    mongoClient.connect(conString).then(clientObject => {
+        var database = clientObject.db("suraj-HealthCare");
+        database.collection("alldoctors").deleteOne({DoctorName:id})
+        .then(()=>{
+             console.log('Appointment Deleted');
+             res.end();             
+        })
+    });
+})
+
 
 
 //---------------------Doctor-Login-------------------------------------
@@ -190,6 +262,32 @@ app.get("/get-all-doctors", (req, res)=>{
         });
     });
 });
+
+
+
+app.post("/save-prescription/:appointmentId", async (req, res) => {
+    const { appointmentId } = req.params;
+    const { patientName, diagnosis, medicines, advice } = req.body;
+
+    try {
+        // Save prescription in your database
+        const prescription = new PrescriptionModel({
+            appointmentId,
+            patientName,
+            diagnosis,
+            medicines,
+            advice,
+            createdAt: new Date(),
+        });
+
+        await prescription.save();
+        res.status(200).send("Prescription saved successfully.");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Failed to save prescription.");
+    }
+});
+
 
 
 

@@ -28,12 +28,15 @@ export function DoctorLogin() {
                     {
                         if(user.Password===client.Password)
                             {   
-                                alert('User Login Successfully');
                                 setCookie('doctor', user.UserName);
-                                navigate("/doctor-dashboard");
-                                toast.success('user Login Successfully....!', {
-                                  autoClose:3000,
-                                })
+                                toast.success("Doctor has been logged in", {
+                                  autoClose: 2000,
+                                  position: "top-right", // Use string for position
+                              });
+                              setTimeout(() => {
+                                  navigate("/doctor-dashboard"); // Delay navigation until toast displays
+                              }, 2000); // Matches the autoClose duration of the toast
+
                             } else {
                                 toast.error('Please enter a Valid Password....!', {
                                   autoClose:4000,

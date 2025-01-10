@@ -25,6 +25,7 @@ import { DoctorProfile } from './Doctor/doctor-profile';
 import { DoctorAppointments } from './Doctor/doctor-appointments';
 import { DoctorList } from './Admin/doctorlist';
 import { Dashboard2 } from './Admin/dashboard-2';
+import { Deletedoc } from './Admin/deletedoc';
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
         <Route path='/add-doctors' element={<AddDoctors />}/>
         <Route path='/doctor-list' element={<DoctorList />}/>
         <Route path='/dashboard-2' element={<Dashboard2 />} />
+        <Route path='/remove-doc/:id' element={<Deletedoc />} />
 
         <Route path='/doctor-login' element={<DoctorLogin />} />
         <Route path='/doctor-profile' element={<DoctorProfile />} />

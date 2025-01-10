@@ -70,10 +70,6 @@ export function AddDoctors() {
 
                 <div className="rounded-md p-8 shadow-2xl bg-white mt-10">
 
-                        <div>
-                            <h1>Upload File</h1>
-                        </div>
-
                         <form onSubmit={formik.handleSubmit}>
 
                             <div className="grid grid-cols-2 gap-5 px-7">
@@ -115,10 +111,12 @@ export function AddDoctors() {
                                     <label className="my-2 font-semibold"> Speciality</label>
                                     <select className="h-10 border-2 px-3 mb-3 bg-blue-50" required name="Speciality" onChange={formik.handleChange}> 
                                         <option value="" disabled>Select Speciality</option>
-                                        <option value="MBBS">MBBS</option>
-                                        <option value="BDS">BDAS</option>
-                                        <option value="BHAMS">BHMS</option>
-                                        <option value="BAMS">BAMS</option>
+                                        <option value="General Physician">General Physician</option>
+                                        <option value="Gynecologist">Gynecologist</option>
+                                        <option value="Dermatologist">Dermatologist</option>
+                                        <option value="Pediatricians">Pediatricians</option>
+                                        <option value="Neurologist">Neurologist</option>
+                                        <option value="Gastroenterologist">Gastroenterologist</option>
                                     </select>                                
                                     <label className="my-2 font-semibold">Education</label>
                                     <input type="text" placeholder="Education" name="Education" required onChange={formik.handleChange}  className="h-10 border-2 px-3 mb-3 bg-blue-50"/>

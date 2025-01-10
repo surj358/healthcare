@@ -105,10 +105,10 @@ export function Navbar() {
                         <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
                     </Link>   
 
-                    <Link to="/demo">
+                    {/* <Link to="/demo">
                         <li  className="py-1 hover:text-primary active:text-primary">Demo</li>
                         <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />                    
-                    </Link> 
+                    </Link>  */}
         
                 </ul>
                 

@@ -48,6 +48,7 @@ export function ToDoAddTask() {
     doctor: "",
     date: Dayjs,
     slot: "",
+    status:"upcoming",
     UserName:cookies['username']
   };
 
@@ -55,7 +56,9 @@ export function ToDoAddTask() {
     axios.post(`http://127.0.0.1:6060/add-task`, task);
             toast.success('Appointment has been confirmed');
             alert('appointment Book Successfully..');
-            navigate('/dashboard');
+            setTimeout(() => {
+              navigate("/dashboard");
+            }, 3000);
   };
 
   return (
@@ -65,7 +68,7 @@ export function ToDoAddTask() {
                 <div className="col-span-2 h-[800px]">
                     <h1 className="p-3 ps-5 cursor-pointer text-black my-1 font-semibold bg-blue-100 border-e-4 border-e-blue-600 transition-all duration-500 ">Book Appointment</h1>
                     <Link to={'/dashboard'}><h1 className="p-3 ps-5 cursor-pointer text-black bg-slate-50 my-1 hover:font-semibold hover:bg-blue-50 hover:border-e-4 hover:border-e-blue-600 transition-all duration-500 ">Appointment History</h1></Link>
-                    <h1 className="p-3 ps-5 cursor-pointer text-black bg-slate-50 my-1 hover:font-semibold hover:bg-blue-50 hover:border-e-4 hover:border-e-blue-600 transition-all duration-500 ">Edit</h1>
+                    {/* <h1 className="p-3 ps-5 cursor-pointer text-black bg-slate-50 my-1 hover:font-semibold hover:bg-blue-50 hover:border-e-4 hover:border-e-blue-600 transition-all duration-500 ">Edit</h1> */}
                 </div>
 
                 <div className="relative -top-36 bg-blue-50 p-20 col-span-10">
