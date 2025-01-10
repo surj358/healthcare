@@ -22,9 +22,7 @@ export function About() {
         !value || (value && ["image/jpeg", "image/png"].includes(value.type))
       ),
   });
-
-
-  
+ 
   const handleSubmit = async (values, { setSubmitting }) => {
     const formData = new FormData();
     formData.append("firstName", values.firstName);
